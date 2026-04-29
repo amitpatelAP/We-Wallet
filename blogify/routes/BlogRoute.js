@@ -23,10 +23,10 @@ router.get('/add-new',(req,res)=>{
 router.post('/', upload.single('coverImage') ,async (req, res) => {
     const{blogbody} = req.body;
     const blog = await Blog.create({
-        title:req.body.tittle,
-        body:blogbody,
-        createdBy:req.user.__id,
-        coverImageURL:`/uploads/${req.file.filename}`
+        title: req.body.title,
+        body: blogbody,
+        createdBy: req.user.__id,
+        coverImageURL: req.file ? `/uploads/${req.file.filename}` : undefined
     });
     return res.redirect(`/blog/${blog._id}`);
 });
